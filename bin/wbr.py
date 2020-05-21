@@ -4,6 +4,7 @@ import logging
 
 import microfs
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 
 def download(*args, **kwargs):
@@ -28,7 +29,13 @@ def plot(*args, **kwargs):
             logging.info('Plotting file %s', f)
             if not dryrun:
                 data = pd.read_csv(f)
-                data.plot(kind='line', x='time', y='altitude')
+                ax = data.plot(kind='line', x='time', y='altitude')
+
+                #Annotate maximum height
+                xmax = data['time'][np.argmax(data['altitude'])]
+                ymax = data['altitude'].max()
+                ax.annotate('Max altitude {}'.format(ymax), xy=(xmax, ymax))
+
                 plt.savefig(f.replace('.csv','.png'))
 
 if __name__ == '__main__':
