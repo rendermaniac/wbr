@@ -7,5 +7,6 @@ Current features include:
 * Automatic sequential file naming
 * Abort option to cancel logging
 * Altimeter Calibration step
+* Maximum height display
 
 Logging is determined by time delay rather than acting off a trigger.
