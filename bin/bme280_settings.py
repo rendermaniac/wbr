@@ -1,33 +1,30 @@
 # See https://github.com/adafruit/Adafruit_CircuitPython_BMP280/blob/master/adafruit_bmp280.py#L289
 
-def const(x):
-    return x
+STANDBY_TC_0_5 = 0x00   # 0.5ms
+STANDBY_TC_10 = 0x06    # 10ms
+STANDBY_TC_20 = 0x07    # 20ms
+STANDBY_TC_62_5 = 0x01  # 62.5ms
+STANDBY_TC_125 = 0x02   # 125ms
+STANDBY_TC_250 = 0x03   # 250ms
+STANDBY_TC_500 = 0x04   # 500ms
+STANDBY_TC_1000 = 0x05  # 1000ms
 
-STANDBY_TC_0_5 = const(0x00)  # 0.5ms
-STANDBY_TC_10 = const(0x06)  # 10ms
-STANDBY_TC_20 = const(0x07)  # 20ms
-STANDBY_TC_62_5 = const(0x01)  # 62.5ms
-STANDBY_TC_125 = const(0x02)  # 125ms
-STANDBY_TC_250 = const(0x03)  # 250ms
-STANDBY_TC_500 = const(0x04)  # 500ms
-STANDBY_TC_1000 = const(0x05)  # 1000ms
+IIR_FILTER_DISABLE = 0
+IIR_FILTER_X2 = 0x01
+IIR_FILTER_X4 = 0x02
+IIR_FILTER_X8 = 0x03
+IIR_FILTER_X16 = 0x04
 
-IIR_FILTER_DISABLE = const(0)
-IIR_FILTER_X2 = const(0x01)
-IIR_FILTER_X4 = const(0x02)
-IIR_FILTER_X8 = const(0x03)
-IIR_FILTER_X16 = const(0x04)
+OVERSCAN_DISABLE = 0x00
+OVERSCAN_X1 = 0x01
+OVERSCAN_X2 = 0x02
+OVERSCAN_X4 = 0x03
+OVERSCAN_X8 = 0x04
+OVERSCAN_X16 = 0x05
 
-OVERSCAN_DISABLE = const(0x00)
-OVERSCAN_X1 = const(0x01)
-OVERSCAN_X2 = const(0x02)
-OVERSCAN_X4 = const(0x03)
-OVERSCAN_X8 = const(0x04)
-OVERSCAN_X16 = const(0x05)
-
-MODE_SLEEP = const(0x00)
-MODE_FORCE = const(0x01)
-MODE_NORMAL = const(0x03)
+MODE_SLEEP = 0x00
+MODE_FORCE = 0x01
+MODE_NORMAL = 0x03
 
 def get_ctrl_meas(overscan_temperature, overscan_pressure, mode):
     ctrl_meas = overscan_temperature << 5
