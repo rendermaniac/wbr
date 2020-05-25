@@ -3,38 +3,37 @@ import os
 import bme280
 
 calibrate = 300
-duration = 60000 # recording time in ms
+duration = 60000 # logging time in ms
 
-progress = duration / 10
-countdown = 10
-
-offset = 0.0
-max_height = 0.0
-
-display.scroll("calibrating ")
-bme = bme280.bme280()
-bme.set_qnh(bme.pressure())
-
-for x in range(calibrate):
-    hc = bme.altitude()
-    offset += hc
-    sleep(10)
-
-offset = hc / calibrate
-
-# number files on disk (1 indexed) excluding source files
-n = len(os.listdir()) - 1
-
-# abort logging - useful for downloading files
 if not button_a.is_pressed():
 
+    n = len(os.listdir()) - 1 # 1 indexed
+    progress = duration / 10
+    countdown = 10
+
+    hc = 0.0
+    offset = 0.0
+    max_height = 0.0
+
+    bme = bme280.bme280()
+    bme.set_qnh(bme.pressure())
+
+    if n > 5:
+        display.scroll("Disk Full!", loop=True) # blocks
+
+    display.scroll("calibrating ")
+    for x in range(calibrate):
+        hc = bme.altitude()
+        offset += hc
+        sleep(10)
+
     data = open("flt{}.csv".format(n), "w")
-    # csv headers
     data.write("time,altitude\n")
+    offset = hc / calibrate
     delay = running_time()
 
     while True:
-        td = running_time() - delay
+        td = running_time() - delay # will be zero
 
         if not td % progress:
             if countdown == 0:
@@ -44,7 +43,7 @@ if not button_a.is_pressed():
             countdown -= 1
 
         if not td % 200:
-            h = bme.altitude() + offset
+            h = bme.altitude() + offset # compensate for ground error
             max_height = h if h > max_height else max_height
             data.write("{},{}\n".format(td, h))
 
@@ -53,7 +52,7 @@ if not button_a.is_pressed():
 
     data.close()
     sleep(1000)
-    display.scroll("max height: {:.2f} {:d} flights remaining".format(max_height, 5-n), loop=True)
+    display.scroll("max height: {:.2f}m {:d} flights remaining".format(max_height, 5-n), loop=True)
 
 else:
     display.show(Image.NO)
