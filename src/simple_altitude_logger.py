@@ -3,13 +3,13 @@ import os
 import bme280
 
 calibrate = 300
-duration = 60000 # logging time in ms
+duration = 120000 # logging time in ms
 
 if not button_a.is_pressed():
 
     n = len(os.listdir()) - 1 # 1 indexed
-    progress = duration / 10
-    countdown = 10
+    countdown = 20
+    progress = duration / countdown
 
     hc = 0.0
     offset = 0.0
@@ -42,7 +42,7 @@ if not button_a.is_pressed():
                 display.scroll("{:d}".format(countdown))
             countdown -= 1
 
-        if not td % 200:
+        if not td % 400:
             h = bme.altitude() + offset # compensate for ground error
             max_height = h if h > max_height else max_height
             data.write("{},{}\n".format(td, h))
@@ -51,7 +51,7 @@ if not button_a.is_pressed():
             break
 
     data.close()
-    sleep(1000)
+    sleep(2000)
     display.scroll("max height: {:.2f}m {:d} flights remaining".format(max_height, 5-n), loop=True)
 
 else:

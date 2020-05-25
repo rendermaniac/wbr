@@ -1,5 +1,4 @@
-from microbit import display, Image, sleep, running_time
-import os
+from microbit import display, Image, running_time
 import bme280
 
 bme = bme280.bme280()

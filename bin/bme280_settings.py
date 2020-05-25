@@ -41,6 +41,6 @@ def get_config(t_standby, iir_filter, mode):
     return config
 
 mode = MODE_NORMAL
-ctrl_meas = get_ctrl_meas(OVERSCAN_X16, OVERSCAN_X16, mode)
-config = get_config(STANDBY_TC_0_5, IIR_FILTER_X16, mode)
+ctrl_meas = get_ctrl_meas(OVERSCAN_X1, OVERSCAN_X8, mode)
+config = get_config(STANDBY_TC_0_5, IIR_FILTER_DISABLE, mode)
 print("CTRL_MEAS {0:b} CONFIG {1:b}".format(ctrl_meas, config))
