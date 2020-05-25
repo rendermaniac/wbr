@@ -9,6 +9,6 @@ Current features include:
 * Altimeter Calibration step
 * Countdown whilst logging data
 * Maximum height display
-* Stores data for up to 5 flights
+* Stores data for up to 5 flights. Will abort if disk is full
 
 Logging is determined by time delay rather than acting off a trigger.
