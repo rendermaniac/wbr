@@ -2,11 +2,11 @@ from microbit import display, Image, button_a, sleep, running_time
 import os
 import bme280
 
-calibrate = 500
+calibrate = 300
 duration = 60000
 max_height = 0
 
-display.show(Image.HAPPY)
+display.show(Image.CONFUSED)
 bme = bme280.bme280()
 bme.set_qnh(bme.pressure())
 
@@ -17,7 +17,7 @@ for x in range(calibrate):
     sleep(10)
 
 offset = hc / calibrate
-display.show(Image.YES)
+display.show(Image.HAPPY)
 
 if not button_a.is_pressed():
 
