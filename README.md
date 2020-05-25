@@ -7,6 +7,8 @@ Current features include:
 * Automatic sequential file naming
 * Abort option to cancel logging
 * Altimeter Calibration step
+* Countdown whilst logging data
 * Maximum height display
+* Stores data for up to 5 flights
 
 Logging is determined by time delay rather than acting off a trigger.
