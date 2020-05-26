@@ -8,10 +8,11 @@ ADDR=0x76
 
 # 500ms standby time, 16 filter coef
 #CONFIG = 0b10010000
-# 0.5ms standby time, 4 filter coef
+# 0.5ms standby time, 16 filter coef
 CONFIG = 0b1000
 
 # x16 oversampling, normal mode
+#CTRL_MEAS = 0b10110111
 CTRL_MEAS = 0b10110111
 
 R_CHIPID = 0xD0
