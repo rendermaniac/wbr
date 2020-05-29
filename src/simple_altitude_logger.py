@@ -3,7 +3,7 @@ import os
 from microbit import display, Image, button_a, sleep, running_time
 
 calibrate = 300
-duration = 120000 # logging time in ms
+duration = 125000 # logging time in ms
 countdown = 120
 
 if not button_a.is_pressed():
@@ -29,29 +29,31 @@ if not button_a.is_pressed():
     data = open("flt{}.csv".format(n), "w")
     data.write("time,altitude\n")
     offset = hc / calibrate
+    x = 0
+    y = 0
     delay = running_time()
 
     while True:
         td = running_time() - delay # will be zero
 
-        if not td % 1000:
-            if countdown == 0:
-                display.show(Image.YES)
-            else:
-                display.scroll("{:d}".format(countdown))
-            countdown -= 1
-
-        if not td % 400:
+        if not td % 500:
             h = bme.altitude() + offset # compensate for ground error
             max_height = h if h > max_height else max_height
             data.write("{},{}\n".format(td, h))
 
+        if not td % 5000:
+            display.set_pixel(x, y, 9)
+            x = (x + 1) % 5
+            if x == 0:
+                y = (y + 1) % 5
+
         if td > duration:
+            display.show(Image.YES)
             break
 
     data.close()
     sleep(2000)
-    display.scroll("max height: {:.2f}m flights left: {:d}".format(max_height, 5-n), loop=True)
+    display.scroll("apogee: {:.2f}m remaining: {:d}".format(max_height, 5-n), loop=True)
 
 else:
     display.show(Image.NO)
