@@ -5,6 +5,7 @@ from microbit import display, Image, button_a, sleep, running_time
 calibrate = 300
 duration = 125000 # logging time in ms
 countdown = 120
+max_files = 5
 
 if not button_a.is_pressed():
 
@@ -15,12 +16,12 @@ if not button_a.is_pressed():
     max_height = 0.0
 
     bme = bme280.bme280()
-    bme.set_qnh(bme.pressure())
 
-    if n > 5:
+    if n > max_files:
         display.scroll("Disk Full!", loop=True) # blocks
 
     display.scroll("calibrating ")
+    bme.set_qnh(bme.pressure())
     for x in range(calibrate):
         hc = bme.altitude()
         offset += hc
@@ -53,7 +54,7 @@ if not button_a.is_pressed():
 
     data.close()
     sleep(2000)
-    display.scroll("apogee: {:.2f}m remaining: {:d}".format(max_height, 5-n), loop=True)
+    display.scroll("max height: {:.2f}m flights left: {:d}".format(max_height, max_files-n), loop=True)
 
 else:
     display.show(Image.NO)
