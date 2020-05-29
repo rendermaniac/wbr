@@ -34,12 +34,12 @@ if not button_a.is_pressed():
     while True:
         td = running_time() - delay # will be zero
 
-        if not td % 2000:
+        if not td % 1000:
             if countdown == 0:
                 display.show(Image.YES)
             else:
                 display.scroll("{:d}".format(countdown))
-            countdown -= 2
+            countdown -= 1
 
         if not td % 400:
             h = bme.altitude() + offset # compensate for ground error
