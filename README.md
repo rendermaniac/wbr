@@ -12,3 +12,5 @@ Current features include:
 * Stores data for up to 5 flights. Will abort if disk is full
 
 Logging is determined by time delay rather than acting off a trigger.
+
+The driver software is a slightly modifed version of the enviro:bit python library https://github.com/pimoroni/micropython-envirobit
